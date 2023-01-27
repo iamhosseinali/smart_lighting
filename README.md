@@ -2,28 +2,7 @@
 controlling the light of a room with fuzzy controller, the design is generic and the fuzzy controller params can be set via VIO
 
 
-Contents
-تئوری عملکرد	2
-بررسی عملکرد درایور ماژول BH1750	3
-BH1750_timing	3
-instruction_sender_FSM	3
-Reading_result_FSM	3
-BH1750_application	4
-بررسی عملکرد کنترلر فازی	5
-Calculating membership functions equations	5
-Fuzzification	6
-sugeno implication	7
-بررسی عملکرد ماژول تبدیل Duty cycle  به PWM	8
-
-
-
-
-
-
-
-
-
-تئوری عملکرد 
+تئوری عملکرد## 
 میزان روشنایی محیط توسط ماژول BH1750 اندازه گیری شده و از طریق پروتکل I2C به FPGA ارسال میگردد، راه اندازی این ماژول توسط کدی به زبان VHDL صورت میپذیرد که خروجی این بلوک میزان روشنایی محیط با یکای LUX با عرض 11 بیت می باشد(عددی بین 2047-0). 
 حال این باس 11 بیتی که حاوی میزان دقیق روشنایی محیط است باید با میزان روشنایی رفرنس مقایسه شده تا مقدار خطا حاصل گردد، این کار به سادگی، طبق کد زیر انجام شده است: 
                 ----- error calculation ---- 
