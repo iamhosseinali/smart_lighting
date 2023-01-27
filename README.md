@@ -7,7 +7,6 @@ controlling the light of a room with fuzzy controller, the design is generic and
 میزان روشنایی محیط توسط ماژول BH1750 اندازه گیری شده و از طریق پروتکل I2C به FPGA ارسال میگردد، راه اندازی این ماژول توسط کدی به زبان VHDL صورت میپذیرد که خروجی این بلوک میزان روشنایی محیط با یکای LUX با عرض 11 بیت می باشد(عددی بین 2047-0). 
 حال این باس 11 بیتی که حاوی میزان دقیق روشنایی محیط است باید با میزان روشنایی رفرنس مقایسه شده تا مقدار خطا حاصل گردد، این کار به سادگی، طبق کد زیر انجام شده است: 
              
-#### error calculation ---- 
 
         lux_error           <= desired_lux_int - lux; 
 
@@ -21,18 +20,19 @@ controlling the light of a room with fuzzy controller, the design is generic and
 
 
 
-بررسی عملکرد درایور ماژول BH1750
+## بررسی عملکرد درایور ماژول BH1750
 این درایور شامل دو فایل VHDL (دو بلوک یا ماژول ) است، در ادامه به بررسی کلی و نحوه عملکرد هر کدام از این دو بلوک میپردازیم : 
-BH1750_timing
+## BH1750_timing
 اصول اینترفیس و تایمینگ ماژول BH1750 در این فایل توصیف شده است. 
 در این طرح دو ماشین حالت برای اجرای روتین ارسال و دریافت از طریق پروتکل I2C در نظر گرفته شده است، تعریف سیگنال این دو ماشین حالت در زیر آورده شده است: 
         signal      instruction_sender_FSM  : unsigned(3 downto 0) := (others => '0');
         signal      Reading_result_FSM      : unsigned(3 downto 0) := (others => '0');
 
 در ادامه به بررسی کلی و نحوه عملکرد هر کدام از این دو ماشین حالت میپردازیم : 
-instruction_sender_FSM
+## instruction_sender_FSM
 این ماشین حالت، مقدار دهی های اولیه و instruction  های مورد نیاز را برای ماژول BH1750 ارسال میکند. 
-نحوه عملکرد این ماشین حالت به صورت زیر است: 
+نحوه عملکرد این ماشین حالت به صورت زیر است:
+
 	waiting for 1.31 us (Tbuff) 1.3 us
 	waiting for (Thdsta) 0.61 us to create start condition and 0.75 us to start sending data
 	sending module address which is 92 in decimal
@@ -43,9 +43,10 @@ instruction_sender_FSM
 	Stop condition
 
 
-Reading_result_FSM
+## Reading_result_FSM
 این ماشین حالت، میزان روشنایی محیط را از ماژول BH1750 دریافت میکند. 
 نحوه عملکرد این ماشین حالت به صورت زیر است: 
+	
 	waiting for 1.31 us (Tbuff) 
 	waiting for  (Thdsta)  0.61 us to create start condition and 0.75 us to start sending data
 	sending module address which is 92 in decimal
@@ -58,9 +59,11 @@ Reading_result_FSM
 	stop condition
 
 
-BH1750_application
+## BH1750_application
+
 کنترل کننده ماژول BH1750_timing است که محسابات لازم برای بدست آوردن میزان روشنایی محیط و همچنین مد کاری ماژول BH1750 را تعیین میکند. 
 ماژولBH1750_timing در این ماژول instant شده است. دو کار اساسی که این ماژول میکند اولا این است که مد کاری BH1750 را تعیین میکند و ثانیا خروجی ماژول BH1750_timing را بر 1.2 تقسیم میکند. (طبق گفته دیتاشیت برای محاسبه lux نهایی این کار حتما باید انجام شود) البته ممکن است این تقسیم بدون استفاده از هیچ آی پی خاصی کمی چالش برانگیز باشد. برای این کار طبق کد زیر ابتدا ضریبی تعریف میکنیم که در دیتای خام ضرب شود(به جای تقسیم بر 1.2 آنرا در 0.8 ضرب میکنیم).
+
 constant coef               : signed (4 downto 0) := to_signed(13,5); --- 0.8
 
 
