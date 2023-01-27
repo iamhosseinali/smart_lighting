@@ -1,0 +1,24 @@
+# 24MHz on-boarD clock
+NET "clock" LOC = P50;
+
+NET "clock" TNM_NET = "clock";
+TIMESPEC TS_Clock = PERIOD "clock" 41.666 ns HIGH 50 %;
+
+
+
+
+NET "SCL" IOSTANDARD = LVCMOS33;
+NET "SDA" IOSTANDARD = LVCMOS33;
+NET "ADD" IOSTANDARD = LVCMOS33;
+NET "USER_LED" IOSTANDARD = LVCMOS33;
+
+
+NET "USER_LED" LOC = P132;
+
+NET "ADD" PULLUP;
+
+NET "ADD"            LOC = P85;
+NET "SDA"            LOC = P83;
+NET "SCL"          	LOC = P81;
+
+

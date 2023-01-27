@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "F:/Edu/FPGA/generic_fuzzy_test/optimizer_tb_isim_beh.exe" -prj "F:/Edu/FPGA/generic_fuzzy_test/optimizer_tb_beh.prj" "work.optimizer_tb" 

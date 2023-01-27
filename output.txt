@@ -1,0 +1,8 @@
+Storage Target: SPI Flash Single FPGA
+64M
+FF
+perm
+F:/Edu/FPGA/alireza_project/RTC6701_spi_controller
+
+MCS
+No
